@@ -1,8 +1,28 @@
+const discount = .12;
+
+const applySale = () => {
+    $('.on-sale').each((i, fish) => {
+        const fullPrice = $(fish).find('.price');
+        const newPrice = (parseInt(fullPrice.html()) * (1-discount)).toFixed(2);
+        console.log(newPrice);
+        fullPrice.html(newPrice);
+    })
+}
+
 // Filter fish that are "on sale"
 
 $('#show-sale').click(()=>{
     //grab all of the divs with the class fish, give me just the ones WITHOUT the class 'on-sale' and HIDE them
     $('.fish').not('.on-sale').toggle();
+    $('#show-sale').text((i, text) => {
+        if (text === "Show Sale Fish") {
+            return "Show All";
+        } else {
+            return "Show Sale Fish";
+        }
+        // OR // return (text === "Show Sale Fish") ? 'Show All' : 'Show Sale Fish' 
+        // This ----^^^^ does the same thing as the if/else statement.  It's just a shorter version in JS
+    })
 });
 
 // Dynamically listen for events that happen on buttons with a class of add or remove
@@ -55,6 +75,7 @@ $.get('../db/fishes.json')
     .done((data)=> {
         console.log(data);
         writeFishes(data.fishes);
+        applySale();
     })
     .fail((error)=> {
         console.error(error);
