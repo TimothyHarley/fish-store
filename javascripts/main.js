@@ -1,8 +1,8 @@
 // Filter fish that are "on sale"
 
-// Add fish to "Basket"
-const bindEvents = () => {
-    $('.add').on('click', (e) => {
+// Dynamically listen for events that happen on buttons with a class of add or remove
+    //add fish
+    $('body').on('click', 'button.add' , (e) => {
         //what is the div that has the fish
         const fishToMove = $(e.target).closest('.fish');
         //move that fish to the 'snagged' div
@@ -10,7 +10,14 @@ const bindEvents = () => {
         // button text => Remove from basket | change class - 'add' + 'remove'
         $(e.target).text('Remove from Basket').addClass('remove').removeClass('add');
     });
-};
+    //remove fish
+   $('body').on('click', 'button.remove', (e) => {
+        const fishToMove = $(e.target).closest('.fish');
+        $('#available').append(fishToMove);
+        $(e.target).text('Add to Basket').addClass('add').removeClass('remove');
+
+    })
+
 
 //write the fishes
 const writeFishes = (arrayOfFishes) => {
@@ -36,7 +43,6 @@ const writeFishes = (arrayOfFishes) => {
     })
     //write to the available div
     $('#available').append(domString);  //append adds this after the content that's already in the div
-    bindEvents();
 }
 
 // Load Fish
