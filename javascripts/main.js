@@ -1,12 +1,23 @@
 // Filter fish that are "on sale"
 
 // Add fish to "Basket"
+const bindEvents = () => {
+    $('.add').on('click', (e) => {
+        //what is the div that has the fish
+        const fishToMove = $(e.target).closest('.fish');
+        //move that fish to the 'snagged' div
+        $("#snagged").append(fishToMove);
+        // button text => Remove from basket | change class - 'add' + 'remove'
+        $(e.target).text('Remove from Basket').addClass('remove').removeClass('add');
+    });
+};
 
+//write the fishes
 const writeFishes = (arrayOfFishes) => {
     let domString = '';
     arrayOfFishes.forEach((fish)=> { //in the dollar sign brackets is asking if "onSale" is true//
         domString += `
-        <div class="${fish.onSale ? 'on-sale' : ''} card col-md-6 col-md-offset-3">
+        <div class="${fish.onSale ? 'on-sale' : ''} fish card col-md-6 col-md-offset-3">
                 <div class="thumbnail">
                     <img src="${fish.imageSoure}"
                         alt="" width="40%">
@@ -24,7 +35,8 @@ const writeFishes = (arrayOfFishes) => {
         `
     })
     //write to the available div
-    $('#available').append(domString);
+    $('#available').append(domString);  //append adds this after the content that's already in the div
+    bindEvents();
 }
 
 // Load Fish
