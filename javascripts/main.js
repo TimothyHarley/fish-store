@@ -1,5 +1,10 @@
 // Filter fish that are "on sale"
 
+$('#show-sale').click(()=>{
+    //grab all of the divs with the class fish, give me just the ones WITHOUT the class 'on-sale' and HIDE them
+    $('.fish').not('.on-sale').toggle();
+});
+
 // Dynamically listen for events that happen on buttons with a class of add or remove
     //add fish
     $('body').on('click', 'button.add' , (e) => {
